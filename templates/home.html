@@ -19,6 +19,10 @@
       <input type="hidden" value="{{event.name}}" name="name">
       <input type="submit" value="Delete">
     </form>
+    <form method="POST" action="./complete">
+      <input type="hidden" value="{{event.name}}" name="name">
+      <input type="submit" value="Complete">
+    </form>
   {% endfor %}
   {% endblock %}
   </body>

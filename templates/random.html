@@ -3,10 +3,10 @@
     {% extends "header.html" %}
     {% block content %}
         <h1>Random Event:</h1>
-            <form method="POST" action="./delete">
+            <form method="POST" action="./complete">
       <p>{{event.name}}</p>
       <input type="hidden" value="{{event.name}}" name="name">
-      <input type="submit" value="Delete">
+      <input type="submit" value="Complete">
     </form>
     {% endblock %}
     </body>

@@ -1,0 +1,15 @@
+<html>
+    <body>
+    {% extends "header.html" %}
+    {% block content %}
+    <h1>Completed:</h1>
+    {% for event in events %}
+    <p>{{event.name}}</p>
+    <form method="POST" action="./delete">
+        <input type="hidden" value="{{event.name}}" name="name">
+        <input type="submit" value="Delete">
+    </form>
+    {% endfor %}
+    {% endblock %}
+    </body>
+</html>
