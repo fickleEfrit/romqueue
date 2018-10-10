@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 
 class Event(db.Model):
     name = db.Column(db.String(200), unique=False, nullable=False, primary_key=True)
-
+    completed = db.Column(db.Boolean, unique=False, nullable=False)
     def __repr__(self):
         return "".format(self.name)
 
@@ -26,15 +26,15 @@ class Event(db.Model):
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.form:
-        event = Event(name=request.form.get("name"))
+        event = Event(name=request.form.get("name"), completed=False)
         db.session.add(event)
         db.session.commit()
-    events = Event.query.all()
+    events = Event.query.filter_by(completed=False)
     return render_template("home.html", events=events)
 
 @app.route("/random", methods=["GET", "POST"])
 def rand():
-    events = Event.query.all()
+    events = Event.query.filter_by(completed=False).all()
     event = random.choice(events)
     return render_template("random.html", event=event)
 
@@ -54,6 +54,24 @@ def delete():
     db.session.delete(event)
     db.session.commit()
     return redirect("/")
+
+@app.route("/complete", methods=["POST"])
+def complete():
+    name = request.form.get("name")
+    event = Event.query.filter_by(name=name).first()
+    if event:
+        event.completed = True
+        db.session.commit()
+    return redirect("/")
+
+@app.route("/completed", methods=["GET", "POST"])
+def completed():
+    if request.form:
+        event = Event.query.filter_by(name=request.form.get("name"))
+        db.session.delete(event)
+        db.sesion.commit()
+    events = Event.query.filter_by(completed=True)
+    return render_template("completed.html", events=events)
 
 if __name__ == "__main__":
     app.run(debug=True)
