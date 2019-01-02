@@ -14,7 +14,7 @@ database = env.get("EVENTS_DB_URI", "sqlite:///{}".format(os.path.join(project_d
 my_port = int(env.get("EVENTS_PORT", 5000))
 debug_mode = bool(env.get("EVENTS_DEBUG", False))
 ip = env.get("EVENTS_IP", "localhost")
-
+init = bool(env.get("EVENTS_INIT", False))
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = database
@@ -27,6 +27,9 @@ class Event(db.Model):
     def __repr__(self):
         return "".format(self.name)
 
+if init:
+    db.create_all()
+    db.session.commit()
 
 @app.route("/", methods=["GET", "POST"])
 def home():
