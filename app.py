@@ -13,6 +13,8 @@ project_dir = os.path.dirname(os.path.abspath(__file__))
 database = env.get("EVENTS_DB_URI", "sqlite:///{}".format(os.path.join(project_dir, "eventdatabase.db")))
 my_port = int(env.get("EVENTS_PORT", 5000))
 debug_mode = bool(env.get("EVENTS_DEBUG", False))
+ip = env.get("EVENTS_IP", "localhost")
+
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = database
@@ -77,4 +79,4 @@ def completed():
     return render_template("completed.html", events=events)
 
 if __name__ == "__main__":
-    app.run(debug=debug_mode, port=my_port, host='0.0.0.0')
+    app.run(debug=debug_mode, port=my_port, host=ip)
