@@ -77,4 +77,4 @@ def completed():
     return render_template("completed.html", events=events)
 
 if __name__ == "__main__":
-    app.run(debug=debug_mode, port=my_port)
+    app.run(debug=debug_mode, port=my_port, host='0.0.0.0')
