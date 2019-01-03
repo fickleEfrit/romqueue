@@ -4,12 +4,16 @@
     {% block content %}
     <h1 class="display-2">Completed:</h1>
     {% for event in events %}
-    <div class="container-fluid">
-    <p class="text-lowercase text-justify">{{event.name}}</p>
-    <form method="POST" action="./delete">
-        <input type="hidden" value=" {{event.name}}" name="name">
-        <input class="btn btn-outline-danger" type="submit" value="Delete">
-    </form>
+    <div class="container-fluid form-row">
+        <div class="form-group col-md-6">
+            <p class="text-lowercase text-justify">{{event.name}}</p>
+        </div>
+        <div class="form-group col-md-4">
+             <form method="POST" action="./delete">
+                <input type="hidden" value=" {{event.name}}" name="name">
+                <input class="btn btn-outline-danger" type="submit" value="Delete">
+             </form>
+        </div>
     </div>
     {% endfor %}
     {% endblock %}

@@ -2,12 +2,14 @@
     <body>
     {% extends "header.html" %}
     {% block content %}
+    <div class="container-fluid">
         <h1>Random Event:</h1>
             <form method="POST" action="./complete">
       <p>{{event.name}}</p>
       <input type="hidden" value="{{event.name}}" name="name">
-      <input type="submit" value="Complete">
+      <input class="btn btn-outline-danger" type="submit" value="Complete">
     </form>
+    </div>
     {% endblock %}
     </body>
 </html>
